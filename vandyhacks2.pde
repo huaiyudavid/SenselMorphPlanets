@@ -57,6 +57,17 @@ void draw()
       }
     }
   }
+  
+  for (int i = 0; i < system.size(); i++) {
+    Planet p1 = system.get(i);
+    for (int j = i+1; j < system.size(); j++) {
+      Planet p2 = system.get(j);
+      if (p1.collides(p2)) {
+        elasticCollision(p1, p2);
+      }
+    }
+  }
+  
   for (Planet p : system){
     p.update(1.0 / FPS, system);
     p.draw();
