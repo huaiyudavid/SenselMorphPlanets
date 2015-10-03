@@ -73,7 +73,7 @@ public static void elasticCollision(Planet p1, Planet p2)
   }
 
   //     **** calculate the normalized impact parameter ***
-  double dr = d*sin(thetav) / r12;
+  double dr = d*Math.sin(thetav) / r12;
 
   //     **** calculate impact angles when balls collide ***
   double alpha = Math.asin(-dr);
