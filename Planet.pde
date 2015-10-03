@@ -176,7 +176,7 @@ public class Planet
   public boolean collides(Planet other)
   {
     double distance = distance(this.x, this.y, this.z, other.x, other.y, other.z);
-    double collisionDistance = (double)(radius + other.radius);
+    double collisionDistance = radius + other.radius;
     if (distance <= collisionDistance)
       return true;
     else
