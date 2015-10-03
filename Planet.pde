@@ -9,6 +9,7 @@ public class Planet
   double velX, velY, velZ;
   float radius, mass; //mass = radius
   PShape shape;
+  final int G = 100;
   
   public Planet(double x, double y, double z, double velX, double velY, double velZ, float r)
   {
@@ -47,7 +48,7 @@ public class Planet
         netForce.add(g);
       }
     }
-    netForce.multiply(100);
+    netForce.multiply(G);
     velX += netForce.i / this.radius;
     velY += netForce.j / this.radius;
     velZ += netForce.k / this.radius;
