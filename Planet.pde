@@ -146,7 +146,7 @@ public class Planet
   public void draw()
   {
     fill(c);
-    ellipse((float)x, (float)y, (float)radius, (float)radius);
+    ellipse((float)x, (float)y, (float)radius * 2, (float)radius * 2);
   }
 
   public void update(double dt, ArrayList<Planet> planets)

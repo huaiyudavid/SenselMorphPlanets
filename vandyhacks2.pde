@@ -49,12 +49,29 @@ void draw()
         system.add(new Planet(initialX[id], initialY[id], 0, (pX - initialX[id]) / 4f, (pY - initialY[id]) / 5f, 0, r));
         force[id] = 0;
       } else if ( contacts[i].type == SenselDevice.SENSEL_EVENT_CONTACT_MOVE || contacts[i].type == SenselDevice.SENSEL_EVENT_CONTACT_START){
-        new Planet(initialX[id],initialY[id], 0, 0,0,0,r).draw();
+        if (r >= 10){
+          Planet temp = new Planet(initialX[id],initialY[id], 0, 0,0,0,r);
+          for (int a = 0; a < system.size(); a++) {
+            if (temp.collides(system.get(a))){
+              force[id] = (float)(distance(system.get(a).x, system.get(a).y, system.get(a).z, temp.x, temp.y, temp.z) - system.get(a).radius) * 100f;
+            }
+          }
+          temp.radius = force[id] / 100f;
+          temp.draw();
+        }
         if (contacts[i].type == SenselDevice.SENSEL_EVENT_CONTACT_START){
           initialX[id] = pX;
           initialY[id] = pY;
         }
       }
+    }
+  }
+  
+  for (int i = 0; i < system.size(); i++){
+    Planet pl = system.get(i);
+    if (pl.radius < 10 || ((pl.x + pl.radius < 0 || pl.x - pl.radius > WINDOW_WIDTH) && (pl.y + pl.radius < 0 || pl.y - pl.radius > WINDOW_HEIGHT))){
+        system.remove(i);
+        i--;
     }
   }
   
