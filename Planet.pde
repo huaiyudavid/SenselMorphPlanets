@@ -45,7 +45,7 @@ public class Planet
   
   public boolean collides(Planet other)
   {
-    double distance = distance(this.x, this.y, other.x, other.y);
+    double distance = Planet.distance(this.x, this.y, other.x, other.y);
     double collisionDistance = (double)(radius + other.radius);
     if (distance <= collisionDistance)
       return true;
@@ -53,7 +53,7 @@ public class Planet
       return false;
   }
   
-  private double distance(double x1, double y1, double x2, double y2)
+  public static double distance(double x1, double y1, double x2, double y2)
   {
      return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
   }
@@ -79,7 +79,7 @@ public class Vector
   
   public void normalize()
   {
-    
+    double magnitude = 
   }
   
 }
