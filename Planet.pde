@@ -1,3 +1,7 @@
+public static double distance(double x1, double y1, double z1, double x2, double y2, double z2)
+{
+  return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2) + Math.pow(z2-z1, 2));
+}  
 
 public class Planet
 {
@@ -39,25 +43,24 @@ public class Planet
       {
         Vector g = new Vector(p.x - this.x, p.y - this.y, p.z - this.z);
         g.normalize();
-        g.multiply((p.radius * this.radius) / (distance(p.x, p.y, this.x, this.y) * distance(p.x, p.y, this.x, this.y)));
+        g.multiply((p.radius * this.radius) / (distance(p.x, p.y, 0, this.x, this.y, 0) * distance(p.x, p.y, 0, this.x, this.y, 0)));
         netForce.add(g);
       }
     }
+    netForce.multiply(100);
+    velX += netForce.i / this.radius;
+    velY += netForce.j / this.radius;
+    velZ += netForce.k / this.radius;
   }
   
   public boolean collides(Planet other)
   {
-    double distance = Planet.distance(this.x, this.y, this.z, other.x, other.y, other.z);
+    double distance = distance(this.x, this.y, this.z, other.x, other.y, other.z);
     double collisionDistance = (double)(radius + other.radius);
     if (distance <= collisionDistance)
       return true;
     else
       return false;
-  }
-  
-  public static double distance(double x1, double y1, double z1, double x2, double y2, double z2)
-  {
-     return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2) + Math.pow(z2-z1, 2));
   }
 }
 
@@ -81,7 +84,7 @@ public class Vector
   
   public void normalize()
   {
-    double magnitude = Planet.distance(i, j, k, 0, 0, 0);
+    double magnitude = distance(i, j, k, 0, 0, 0);
     i /= magnitude;
     j /= magnitude;
     k /= magnitude;
