@@ -79,7 +79,21 @@ public class Vector
   
   public void normalize()
   {
-    double magnitude = Planet.distance(
+    double magnitude = Planet.distance(i, j, k, 0, 0, 0);
+    i /= magnitude;
+    j /= magnitude;
+    k /= magnitude;
   }
   
+  public void multiply(double other)
+  {
+    i *= other;
+    j *= other;
+    k *= other;
+  }
+  
+  public double dot(Vector other)
+  {
+    return i*other.i + j*other.j + k*other.k;
+  }
 }
