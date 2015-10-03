@@ -4,7 +4,7 @@ ArrayList<Planet> system = new ArrayList<Planet>();
 int WINDOW_WIDTH = 1400;
 int WINDOW_HEIGHT;
 int FPS = 60;
-
+  
 void setup()
 {
   //sensel setup
@@ -40,25 +40,26 @@ void draw()
   if(contacts != null)
   {
     for (int i = 0; i < contacts.length; i++){
-      force[i] = (force[i] * 0.95f) + (contacts[i].total_force * 0.05f);
-      float r = force[i] / 100f;
+      int id = contacts[i].id;
+      force[id] = (force[id] * 0.95f) + (contacts[i].total_force * 0.05f);
+      float r = force[id] / 100f;
       int pX = (int) ((contacts[i].x_pos_mm / sensel.getSensorWidthMM())  * WINDOW_WIDTH);
       int pY = (int) ((contacts[i].y_pos_mm / sensel.getSensorHeightMM()) * WINDOW_HEIGHT);
       if (contacts[i].type == SenselDevice.SENSEL_EVENT_CONTACT_END){
-        system.add(new Planet(initialX[i], initialY[i], 0, (pX - initialX[i]) / 4f, (pY - initialY[i]) / 5f, 0, r));
-        force[i] = -1;
+        system.add(new Planet(initialX[id], initialY[id], 0, (pX - initialX[id]) / 4f, (pY - initialY[id]) / 5f, 0, r));
+        force[id] = 0;
       } else if ( contacts[i].type == SenselDevice.SENSEL_EVENT_CONTACT_MOVE || contacts[i].type == SenselDevice.SENSEL_EVENT_CONTACT_START){
-        ellipse(initialX[i], initialY[i], r, r);
+        new Planet(initialX[id],initialY[id], 0, 0,0,0,r).draw();
         if (contacts[i].type == SenselDevice.SENSEL_EVENT_CONTACT_START){
-          initialX[i] = pX;
-          initialY[i] = pY;
+          initialX[id] = pX;
+          initialY[id] = pY;
         }
       }
     }
   }
   for (Planet p : system){
     p.update(1.0 / FPS, system);
-    ellipse((float)p.x, (float)p.y, (float)p.radius, (float)p.radius);
+    p.draw();
   }
     
 }

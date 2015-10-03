@@ -9,6 +9,7 @@ public class Planet
   double velX, velY, velZ;
   float radius, mass; //mass = radius
   PShape shape;
+  color c;
   final int G = 100;
   
   public Planet(double x, double y, double z, double velX, double velY, double velZ, float r)
@@ -21,13 +22,16 @@ public class Planet
     this.velZ = velZ;
     this.radius = r;
     this.mass = r;
-    
-    shape = createShape(ELLIPSE, 0, 0, radius, radius);
+    int red = (int)(r < 150 ? ((r-100) / 50f) * 255 : 255);
+    int green = (int)(r < 100 ? ((r-50) / 50f) * 255 : ( r < 150 ? 255 : (((200 - r)  / 50f) * 255)));
+    int blue = (int)(r < 50 ? (r / 50f) * 255 : ( r < 100 ? 255 : (((150 - r)  / 50f) * 255)));
+    c = color(red,green,blue);
   }
   
   public void draw()
   {
-    shape(shape, (float)x, (float)y);
+    fill(c);
+    ellipse((float)x, (float)y, (float)radius, (float)radius);
   }
   
   public void update(double dt, ArrayList<Planet> planets)
