@@ -31,6 +31,16 @@ public class Planet
     y += velY * dt;
     z += velZ * dt;
     
+    Vector netForce = new Vector(0, 0, 0);
+    
+    for (Planet p : planets)
+    {
+      if (this != p)
+      {
+        
+        
+      }
+    }
   }
   
   public boolean collides(Planet other)
@@ -47,4 +57,29 @@ public class Planet
   {
      return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
   }
+}
+
+public class Vector
+{
+  double i, j, k;
+  
+  public Vector(double i, double j, double k)
+  {
+    this.i = i;
+    this.j = j;
+    this.k = k;
+  }
+  
+  public void add(Vector other)
+  {
+    i += other.i;
+    j += other.j;
+    k += other.k;
+  }
+  
+  public void normalize()
+  {
+    
+  }
+  
 }
