@@ -1,12 +1,12 @@
 
 public class Planet
 {
-  float x, y, z;
-  float velX, velY, velZ;
+  double x, y, z;
+  double velX, velY, velZ;
   float radius, mass; //mass = radius
   PShape shape;
   
-  public Planet(float x, float y, float z, float velX, float velY, float velZ, float r)
+  public Planet(double x, double y, double z, double velX, double velY, double velZ, float r)
   {
     this.x = x;
     this.y = y;
@@ -22,11 +22,14 @@ public class Planet
   
   public void draw()
   {
-    shape(shape, x, y);
+    shape(shape, (float)x, (float)y);
   }
   
-  public void update(float dt, ArrayList<Planet> planets)
+  public void update(double dt, ArrayList<Planet> planets)
   {
-    x += 
+    x += velX * dt;
+    y += velY * dt;
+    z += velZ * dt;
+    
   }
 }
