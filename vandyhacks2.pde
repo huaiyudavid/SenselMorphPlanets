@@ -21,7 +21,7 @@ void setup()
   sensel.startScanning();
   //end sensel setup
   WINDOW_HEIGHT = (int) ((sensel.getSensorHeightMM() / sensel.getSensorWidthMM()) * 1400);
-  size(WINDOW_WIDTH,WINDOW_HEIGHT);
+  size(WINDOW_WIDTH,WINDOW_HEIGHT, P3D);
   frameRate(FPS);
   noStroke();
 }

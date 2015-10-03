@@ -112,10 +112,10 @@ public static void elasticCollision(Planet p1, Planet p2)
   //     **** update the planet velocities with the calculated velocities ****
   p1.velX = vx1;
   p1.velY = vy1;
-  p1.velZ = vz1;
+  //p1.velZ = vz1;
   p2.velX = vx2;
   p2.velY = vy2;
-  p2.velZ = vz2;
+  //p2.velZ = vz2;
 }
 
 public class Planet
