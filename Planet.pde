@@ -92,9 +92,9 @@ public static void elasticCollision(Planet p1, Planet p2)
 
   double dvz2 = 2*(vz1r+a*(cbeta*vx1r+sbeta*vy1r))/((1+a*a)*(1+m21));
 
-  vz2r = dvz2;
-  vx2r = a*cbeta*dvz2;
-  vy2r = a*sbeta*dvz2;
+  double vz2r = dvz2;
+  double vx2r = a*cbeta*dvz2;
+  double vy2r = a*sbeta*dvz2;
   vz1r = vz1r-m21*vz2r;
   vx1r = vx1r-m21*vx2r;
   vy1r = vy1r-m21*vy2r;
