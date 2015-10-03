@@ -35,7 +35,7 @@ public class Planet
   
   public boolean collides(Planet other)
   {
-    
+    return false;
   }
   
   private double distance(double x1, double y1, double x2, double y2)
