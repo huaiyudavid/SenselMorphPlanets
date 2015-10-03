@@ -3,7 +3,7 @@ boolean sensel_sensor_opened = false;
 ArrayList<Planet> system = new ArrayList<Planet>();
 int WINDOW_WIDTH = 1400;
 int WINDOW_HEIGHT;
-int FPS = 30;
+int FPS = 60;
 
 void setup()
 {
@@ -22,7 +22,7 @@ void setup()
   //end sensel setup
   WINDOW_HEIGHT = (int) ((sensel.getSensorHeightMM() / sensel.getSensorWidthMM()) * 1400);
   size(WINDOW_WIDTH,WINDOW_HEIGHT);
-  framerate(FPS);
+  frameRate(FPS);
   noStroke();
 }
 
@@ -45,7 +45,7 @@ void draw()
       int pX = (int) ((contacts[i].x_pos_mm / sensel.getSensorWidthMM())  * WINDOW_WIDTH);
       int pY = (int) ((contacts[i].y_pos_mm / sensel.getSensorHeightMM()) * WINDOW_HEIGHT);
       if (contacts[i].type == SenselDevice.SENSEL_EVENT_CONTACT_END){
-        system.add(new Planet(initialX[i], initialY[i], 0, (pX - initialX[i]) / 5f, (pY - initialY[i]) / 5f, 0, r));
+        system.add(new Planet(initialX[i], initialY[i], 0, (pX - initialX[i]) / 4f, (pY - initialY[i]) / 5f, 0, r));
         force[i] = -1;
       } else if ( contacts[i].type == SenselDevice.SENSEL_EVENT_CONTACT_MOVE || contacts[i].type == SenselDevice.SENSEL_EVENT_CONTACT_START){
         ellipse(initialX[i], initialY[i], r, r);

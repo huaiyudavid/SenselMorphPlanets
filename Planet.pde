@@ -35,7 +35,12 @@ public class Planet
   
   public boolean collides(Planet other)
   {
-    return false;
+    double distance = distance(this.x, this.y, other.x, other.y);
+    double collisionDistance = (double)(radius + other.radius);
+    if (distance <= collisionDistance)
+      return true;
+    else
+      return false;
   }
   
   private double distance(double x1, double y1, double x2, double y2)
