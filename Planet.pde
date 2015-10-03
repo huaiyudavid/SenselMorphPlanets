@@ -37,8 +37,10 @@ public class Planet
     {
       if (this != p)
       {
-        
-        
+        Vector g = new Vector(p.x - this.x, p.y - this.y, p.z - this.z);
+        g.normalize();
+        g.multiply((p.radius * this.radius) / (distance(p.x, p.y, this.x, this.y) * distance(p.x, p.y, this.x, this.y)));
+        netForce.add(g);
       }
     }
   }
