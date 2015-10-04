@@ -136,6 +136,9 @@ void keyPressed() {
     exit();
     return;
   }
+  if (key=='r'||key=='R'){
+    system = new ArrayList<Planet>();
+  }
 }
 
 public class DisposeHandler 
