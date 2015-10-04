@@ -1,3 +1,6 @@
+//created by Huaiyu Yang and Caleb Proffitt
+//10/4/2015
+
 SenselDevice sensel;
 boolean sensel_sensor_opened = false;
 ArrayList<Planet> system = new ArrayList<Planet>();
