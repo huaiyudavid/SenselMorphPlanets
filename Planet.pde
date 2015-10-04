@@ -149,7 +149,7 @@ public class Planet
   double radius, mass; //mass = radius
   PShape shape;
   color col;
-  final int G = 700;
+  final int G = 1000;
 
   public Planet(double x, double y, double z, double velX, double velY, double velZ, double r)
   {

@@ -126,7 +126,7 @@ void draw()
   }
 
   for (Planet p : system) {
-    p.update(1.0 / FPS, system);
+    p.update(3.0 / FPS, system);
     p.draw();
   }
 }
