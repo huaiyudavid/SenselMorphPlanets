@@ -3,6 +3,30 @@ public static double distance(double x1, double y1, double z1, double x2, double
   return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2) + Math.pow(z2-z1, 2));
 }
 
+public static double[] rotX(double[] point, double angle)
+{
+  double x = point[0], y = point[1], z = point[2];
+  double newY = y * Math.cos(angle) - z * Math.sin(angle);
+  double newZ = y * Math.sin(angle) + z * Math.cos(angle);
+  return new double[]{x, newY, newZ};
+}
+
+public static double[] rotY(double[] point, double radians)
+{
+  double x = point[0], y = point[1], z = point[2];
+  double newZ = z * Math.cos(radians) - x * Math.sin(radians);
+  double newX = z * Math.sin(radians) + x * Math.cos(radians);
+  return new double[]{newX, y, newZ};
+}
+
+public static double[] rotZ(double[] point, double radians)
+{
+  double x = point[0], y = point[1], z = point[2];
+  double newX = x * Math.cos(radians) - y * Math.sin(radians);
+  double newY = x * Math.sin(radians) + y * Math.cos(radians);
+  return new double[]{newX, newY, z};
+}
+
 //Precondition: p1 collides with p2
 public static void elasticCollision(Planet p1, Planet p2)
 {
@@ -146,18 +170,18 @@ public class Planet
     shape = createShape(SPHERE, (float)r);
   }
 
-  public void draw(double rotX, double rotY, double rotZ)
+  public void draw()
   {
+    double r = radius;
+    int red = (int)(r < 150 ? ((r-100) / 50f) * 255 : 255);
+    int green = (int)(r < 100 ? ((r-50) / 50f) * 255 : ( r < 150 ? 255 : (((200 - r)  / 50f) * 255)));
+    int blue = (int)(r < 50 ? (r / 50f) * 255 : ( r < 100 ? 255 : (((150 - r)  / 50f) * 255)));
+    col = color(red, green, blue);
     shape.translate((float)(x + radius), (float)(y+ radius), (float)(z + radius));
-    shape.translate(-width/2, -height/2, 0);
-    shape.rotateX(rotX);
-    shape.rotateY(rotY);
-    shape.rotateZ(rotZ);
-    shape.translate(width/2, height/2, 0);
-    shapeMode(CENTER);
     noStroke();
     fill(col);
     shape(shape);
+    shapeMode(CENTER);
     //shape.translate(-(float)(x + radius), -(float)(y+ radius), -(float)(z + radius));
     shape.resetMatrix();
   }

@@ -29,11 +29,20 @@ void setup()
   //end sensel setup
   frameRate(FPS);
   noStroke();
+  
+  float[] acc_data = sensel.readAccelerometerData();
+  rotXi = acc_data[1];
+  rotYi = acc_data[0];
+  rotZi = 0;
+  cameraPointi = new double[]{width/2, height/2, (height/2.0) / tan(PI*30.0 / 180.0)};
 }
 
 float[] force = new float[1000];
 int[] initialX = new int[1000];
 int[] initialY = new int[1000];
+double rotXi, rotYi, rotZi;
+double[] cameraPointi;
+float[] acc_data_cache = null;
 
 void draw()
 {
@@ -46,9 +55,28 @@ void draw()
   //directionalLight(255, 255, 255, 0, 0, -1);
   lights();
   sphereDetail(30);
-  camera(width/2, height/2, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
   SenselContact[] contacts = sensel.readContacts();
-  if (contacts != null)
+  float[] acc_data = sensel.readAccelerometerData();
+  if (acc_data_cache == null){
+    acc_data_cache = acc_data;
+  } else {
+    for (int i = 0; i < acc_data.length; i++){
+      acc_data_cache[i] = (acc_data_cache[i] * 0.95) + (acc_data[i] * 0.05);
+    }
+  }
+  
+  double rotXangle = (acc_data_cache[1] - rotXi) * PI/2;
+  double rotYangle = (acc_data_cache[0] - rotZi) * PI/2;
+  double rotZangle = 0;
+  
+  //double[] cameraP = cameraPointi;
+  double[] cameraP = rotX(cameraPointi, rotXangle);
+  //cameraP = rotY(cameraP, rotYangle);
+  //println("Acc Data: (" + acc_data[0] + ", " + acc_data[1] + ", " + acc_data[2] + ")");
+  
+  camera((float)cameraP[0], (float)cameraP[1], (float)cameraP[2], width/2.0, height/2.0, 0, 0, 1, 0);
+
+  if (contacts != null && acc_data != null)
   {
     for (int i = 0; i < contacts.length; i++) {
       int id = contacts[i].id;
