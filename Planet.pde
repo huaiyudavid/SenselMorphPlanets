@@ -108,7 +108,7 @@ public static void elasticCollision(Planet p1, Planet p2)
   vx2 = ct*cp*vx2r-sp*vy2r+st*cp*vz2r +vx2;
   vy2 = ct*sp*vx2r+cp*vy2r+st*sp*vz2r +vy2;
   vz2 = ct*vz2r-st*vx2r               +vz2;
-  
+
   //     **** update the planet velocities with the calculated velocities ****
   p1.velX = vx1;
   p1.velY = vy1;
@@ -124,8 +124,8 @@ public class Planet
   double velX, velY, velZ;
   double radius, mass; //mass = radius
   PShape shape;
-  color c;
-  final int G = 100;
+  color col;
+  final int G = 700;
 
   public Planet(double x, double y, double z, double velX, double velY, double velZ, double r)
   {
@@ -140,13 +140,26 @@ public class Planet
     int red = (int)(r < 150 ? ((r-100) / 50f) * 255 : 255);
     int green = (int)(r < 100 ? ((r-50) / 50f) * 255 : ( r < 150 ? 255 : (((200 - r)  / 50f) * 255)));
     int blue = (int)(r < 50 ? (r / 50f) * 255 : ( r < 100 ? 255 : (((150 - r)  / 50f) * 255)));
-    c = color(red,green,blue);
+    System.out.println(red + ", " + green + ", " + blue);
+    col = color(red, green, blue);
+    //shape = createShape(ELLIPSE, 0f, 0f, (float)r * 2, (float)r * 2);
+    shape = createShape(SPHERE, (float)r);
   }
 
-  public void draw()
+  public void draw(double rotX, double rotY, double rotZ)
   {
-    fill(c);
-    ellipse((float)x, (float)y, (float)radius * 2, (float)radius * 2);
+    shape.translate((float)(x + radius), (float)(y+ radius), (float)(z + radius));
+    shape.translate(-width/2, -height/2, 0);
+    shape.rotateX(rotX);
+    shape.rotateY(rotY);
+    shape.rotateZ(rotZ);
+    shape.translate(width/2, height/2, 0);
+    shapeMode(CENTER);
+    noStroke();
+    fill(col);
+    shape(shape);
+    //shape.translate(-(float)(x + radius), -(float)(y+ radius), -(float)(z + radius));
+    shape.resetMatrix();
   }
 
   public void update(double dt, ArrayList<Planet> planets)
@@ -168,9 +181,9 @@ public class Planet
       }
     }
     netForce.multiply(G);
-    velX += netForce.i / this.radius;
-    velY += netForce.j / this.radius;
-    velZ += netForce.k / this.radius;
+    velX += netForce.i / this.mass;
+    velY += netForce.j / this.mass;
+    velZ += netForce.k / this.mass;
   }
 
   public boolean collides(Planet other)
