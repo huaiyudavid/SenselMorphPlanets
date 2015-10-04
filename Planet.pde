@@ -172,11 +172,6 @@ public class Planet
 
   public void draw()
   {
-    double r = radius;
-    int red = (int)(r < 150 ? ((r-100) / 50f) * 255 : 255);
-    int green = (int)(r < 100 ? ((r-50) / 50f) * 255 : ( r < 150 ? 255 : (((200 - r)  / 50f) * 255)));
-    int blue = (int)(r < 50 ? (r / 50f) * 255 : ( r < 100 ? 255 : (((150 - r)  / 50f) * 255)));
-    col = color(red, green, blue);
     shape.translate((float)(x + radius), (float)(y+ radius), (float)(z + radius));
     noStroke();
     fill(col);
